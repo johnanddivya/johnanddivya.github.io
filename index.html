@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>John &amp; Divya · Wedding Invitation</title>
+<meta name="description" content="Madhuram Veppu &amp; Sangeet on Fri 1 Jan, Wedding &amp; Reception on Sun 3 Jan 2027 in Kochi. Tap to open your invitation.">
+<meta name="theme-color" content="#1B2F6E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="John &amp; Divya · You're invited">
+<meta property="og:description" content="Madhuram Veppu &amp; Sangeet · Fri 1 Jan · Wedding &amp; Reception · Sun 3 Jan 2027 · Kochi. Tap to open your invitation.">
+<meta property="og:image" content="https://johnanddivya.github.io/og.jpg">
+<meta property="og:image:secure_url" content="https://johnanddivya.github.io/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="John &amp; Divya wedding invitation">
+<meta property="og:url" content="https://johnanddivya.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Pinyon+Script&display=swap">
+<style>
+/* Layout: one invitation-card column on handmade paper; envelope opening, then two event cards in each event's own ink (palm green, peony indigo), joined by a kasavu gold band. Single-theme letterpress look by choice. */
+:root {
+  --paper: #FAF7F0;
+  --paper-deep: #EEE8DA;
+  --indigo: #24429A;
+  --indigo-deep: #1B2F6E;
+  --palm: #2E6E60;
+  --gold: #B48A3A;
+  --gold-soft: #DCC48A;
+  --ink: #2A2E40;
+  --muted: #676B7E;
+  --rule: rgba(36, 66, 154, .18);
+
+  --f-script: "Pinyon Script", "Great Vibes", "Snell Roundhand", cursive;
+  --f-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --f-body: "Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper-deep);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 19px;
+  line-height: 1.5;
+  padding-inline: 16px;
+  padding-block: 24px 48px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body.locked { overflow: hidden; }
+
+/* ---------- Envelope ---------- */
+.overlay {
+  position: fixed; inset: 0; z-index: 20;
+  display: grid; place-items: center; align-content: center; gap: 28px;
+  padding: 24px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+  background: var(--paper-deep);
+  background-image: inherit;
+  transition: opacity .6s ease 1.45s, visibility 0s linear 2.05s;
+}
+.overlay.open { opacity: 0; visibility: hidden; }
+.env {
+  position: relative;
+  width: min(340px, 86vw);
+  aspect-ratio: 1.42;
+  perspective: 900px;
+  filter: drop-shadow(0 18px 30px rgba(27, 47, 110, .25));
+}
+.env-back {
+  position: absolute; inset: 0; border-radius: 6px;
+  background: var(--indigo-deep);
+}
+.letter {
+  position: absolute; left: 6%; right: 6%; top: 8%; height: 84%;
+  background: var(--paper);
+  border-radius: 3px;
+  display: grid; justify-items: center; align-content: start; gap: 2px; text-align: center;
+  padding: 14px 12px;
+  transition: transform .9s cubic-bezier(.2,.7,.2,1) .45s;
+}
+.letter p { margin: 0; font-family: var(--f-script); color: var(--indigo); font-size: clamp(30px, 9vw, 40px); line-height: 1.1; }
+.letter small { font-family: var(--f-body); font-weight: 600; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--palm); }
+.overlay.open .letter { transform: translateY(-58%); }
+.env-front {
+  position: absolute; inset: 0; border-radius: 6px; overflow: hidden;
+  background: var(--indigo);
+  clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+}
+.env-front::after { /* kasavu band along the bottom edge */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 9%; height: 14px;
+  background: linear-gradient(to bottom, var(--gold) 0 2px, transparent 2px 4px, var(--gold-soft) 4px 10px, transparent 10px 12px, var(--gold) 12px 14px);
+  opacity: .9;
+}
+.env-flap {
+  position: absolute; left: 0; right: 0; top: 0; height: 58%;
+  background: var(--indigo-deep);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .6s ease-in .15s, z-index 0s linear .45s;
+  z-index: 3;
+}
+.env-flap::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.12));
+}
+.overlay.open .env-flap { transform: rotateX(180deg); z-index: 0; }
+.overlay.open .letter { z-index: 2; }
+.env-front { z-index: 2; }
+.letter { z-index: 1; }
+.overlay.open .env-front { z-index: 3; }
+
+.seal {
+  position: absolute; left: 50%; top: 58%; z-index: 4;
+  width: 76px; height: 76px; margin: -38px 0 0 -38px;
+  border-radius: 50%; border: 0; cursor: pointer;
+  background: radial-gradient(circle at 35% 30%, #E9D49A, var(--gold) 55%, #8E6A28);
+  box-shadow: 0 0 0 4px rgba(180,138,58,.35), 0 6px 14px rgba(0,0,0,.3), inset 0 -3px 6px rgba(0,0,0,.25);
+  color: #5B4314;
+  font-family: var(--f-script); font-size: 30px; line-height: 76px; padding: 0;
+  transition: transform .4s ease, opacity .35s ease;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.seal:focus-visible { outline: 3px solid var(--gold-soft); outline-offset: 4px; }
+.overlay.open .seal { transform: scale(.6); opacity: 0; animation: none; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px rgba(180,138,58,.35), 0 6px 14px rgba(0,0,0,.3), inset 0 -3px 6px rgba(0,0,0,.25);} 50% { box-shadow: 0 0 0 12px rgba(180,138,58,0), 0 6px 14px rgba(0,0,0,.3), inset 0 -3px 6px rgba(0,0,0,.25);} }
+.env-caption { text-align: center; display: grid; gap: 4px; }
+.env-caption .to { font-family: var(--f-body); font-style: italic; font-size: 20px; color: var(--ink); margin: 0; }
+.hint { margin: 0; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+#petals { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 30; }
+
+/* ---------- Card column ---------- */
+.card {
+  max-width: 480px; margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgba(42,46,64,.08), 0 20px 50px -20px rgba(42,46,64,.25);
+  overflow: hidden;
+  position: relative;
+}
+.eyebrow {
+  font-family: var(--f-body); font-weight: 600; font-size: 13px;
+  letter-spacing: .26em; text-transform: uppercase; margin: 0;
+  font-variant-numeric: lining-nums;
+}
+.kasavu {
+  height: 14px; border: 0; margin: 0;
+  background: linear-gradient(to bottom, var(--gold) 0 2px, transparent 2px 4px, var(--gold-soft) 4px 10px, transparent 10px 12px, var(--gold) 12px 14px);
+}
+
+/* Hero */
+.hero { position: relative; text-align: center; padding-bottom: 36px; }
+.hero .flora { display: block; width: 100%; height: auto; }
+.hero-body { display: grid; gap: 14px; padding: 4px 24px 0; justify-items: center; }
+.hero .eyebrow { color: var(--indigo); }
+.names {
+  margin: 0; font-family: var(--f-script); font-weight: 400; color: var(--indigo);
+  font-size: clamp(64px, 19vw, 88px); line-height: .95;
+  display: grid; justify-items: center;
+}
+.names .amp { font-size: .72em; line-height: 1.1; color: var(--gold); }
+.lede { margin: 0; font-size: 21px; max-width: 30ch; text-wrap: balance; }
+.dates-line { font-family: var(--f-display); font-size: 18px; color: var(--indigo-deep); margin: 0; letter-spacing: .02em; }
+
+/* Animate the hero only after the envelope opens */
+.anim .hero .flora { animation: drift 1.6s cubic-bezier(.2,.7,.2,1) both; }
+.anim .hero-body > * { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+.anim .hero-body > *:nth-child(2) { animation-delay: .25s; }
+.anim .hero-body > *:nth-child(3) { animation-delay: .45s; }
+.anim .hero-body > *:nth-child(4) { animation-delay: .6s; }
+.anim .names { animation: ink 1.6s ease .2s both !important; }
+@keyframes drift { from { transform: translateY(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes rise { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ink { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* Countdown */
+.count { padding: 28px 24px 30px; text-align: center; display: grid; gap: 14px; }
+.count .eyebrow { color: var(--muted); }
+.ticks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 360px; margin: 0 auto; width: 100%; }
+.tick { display: grid; gap: 2px; }
+.tick b { font-family: var(--f-display); font-weight: 400; font-size: clamp(30px, 9vw, 40px); color: var(--indigo); line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.tick span { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.count .done { font-family: var(--f-script); font-size: 38px; color: var(--indigo); margin: 0; }
+
+/* Weekend strip */
+.weekend { padding: 30px 24px 8px; display: grid; gap: 18px; }
+.weekend h2 { margin: 0; text-align: center; font-family: var(--f-display); font-weight: 400; font-size: 26px; color: var(--ink); }
+.days { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; position: relative; }
+.days::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: 22px; border-top: 1px dashed var(--gold); }
+.day { display: grid; justify-items: center; gap: 6px; text-align: center; position: relative; }
+.day a { color: inherit; text-decoration: none; display: grid; justify-items: center; gap: 6px; border-radius: 8px; padding: 0 4px 4px; }
+.day a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.dot { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); border: 1.5px solid currentColor; font-family: var(--f-display); font-size: 18px; font-variant-numeric: lining-nums; }
+.day.fri { color: var(--palm); }
+.day.sun { color: var(--indigo); }
+.day.sat { color: var(--gold); padding-top: 14px; }
+.day.sat .dot { width: 16px; height: 16px; border-color: var(--gold); }
+.day small { font-variant-numeric: lining-nums; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; }
+.day em { font-style: normal; font-size: 16px; color: var(--ink); line-height: 1.25; max-width: 15ch; }
+
+/* Event cards */
+.events { padding: 22px 16px 34px; display: grid; gap: 22px; }
+.event {
+  --tone: var(--indigo);
+  position: relative; border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+  background: var(--paper);
+  padding: 0 0 26px; text-align: center; overflow: hidden;
+  scroll-margin-top: 16px;
+}
+.event.green { --tone: var(--palm); }
+.event .inner { display: grid; gap: 12px; padding: 0 22px; justify-items: center; position: relative; z-index: 1; }
+.event .eyebrow { color: var(--tone); }
+.event h3 { margin: 0; font-family: var(--f-display); font-weight: 400; color: var(--tone); font-size: clamp(28px, 8vw, 34px); line-height: 1.1; text-wrap: balance; }
+.event h3 i { font-style: italic; }
+.event .note { margin: 0; font-style: italic; color: var(--muted); font-size: 18px; max-width: 30ch; }
+.corner { position: absolute; top: 0; width: 34%; max-width: 150px; height: auto; pointer-events: none; opacity: .95; }
+.corner.l { left: 0; }
+.corner.r { right: 0; transform: scaleX(-1); }
+.tree { width: 92px; height: auto; margin-top: 26px; }
+.peony-band { display: block; width: 100%; height: auto; }
+.peony-band.top { margin-bottom: 6px; }
+.peony-band.bottom { margin-top: 18px; margin-bottom: -26px; }
+
+.slot { display: grid; gap: 2px; width: 100%; padding: 14px 0; border-top: 1px solid color-mix(in srgb, var(--tone) 22%, transparent); }
+.slot:last-of-type { border-bottom: 1px solid color-mix(in srgb, var(--tone) 22%, transparent); }
+.slot .time { font-family: var(--f-display); font-size: 20px; color: var(--tone); }
+.slot .what { font-weight: 600; font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.slot .where { font-size: 19px; line-height: 1.35; text-wrap: balance; }
+.slot .dir { justify-self: center; margin-top: 6px; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 4px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-body); font-weight: 600; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--tone); text-decoration: none;
+  border: 1px solid var(--tone); border-radius: 999px; padding: 9px 16px;
+  background: transparent; transition: background .2s, color .2s;
+}
+.btn.solid { background: var(--tone); color: var(--paper); }
+.btn:hover { background: var(--tone); color: var(--paper); }
+.btn.solid:hover { background: transparent; color: var(--tone); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.btn svg { width: 15px; height: 15px; flex: none; }
+.link-quiet { font-size: 15px; color: var(--tone); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--tone) 40%, transparent); text-underline-offset: 3px; }
+
+/* Closing */
+.closing { text-align: center; padding: 34px 24px 0; display: grid; gap: 10px; justify-items: center; }
+.closing p { margin: 0; }
+.closing .with { font-style: italic; font-size: 21px; max-width: 28ch; text-wrap: balance; }
+.closing .sig { font-family: var(--f-script); font-size: 54px; color: var(--indigo); line-height: 1.1; }
+.closing .place { font-size: 13px; letter-spacing: .26em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.replay { margin-top: 8px; border: 0; background: none; font-family: var(--f-body); font-size: 15px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 6px; }
+.replay:focus-visible { outline: 2px solid var(--gold); }
+.closing .flora { display: block; width: 100%; height: auto; margin-top: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+}
+
+/* standalone-site additions */
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body { padding-block: calc(24px + env(safe-area-inset-top, 0px)) calc(48px + env(safe-area-inset-bottom, 0px)); }
+.event { border-color: rgba(36,66,154,.3); }
+.event.green { border-color: rgba(46,110,96,.3); }
+.slot { border-top-color: rgba(36,66,154,.2); }
+.event.green .slot { border-top-color: rgba(46,110,96,.2); border-bottom-color: rgba(46,110,96,.2); }
+@supports (color: color-mix(in srgb, red, blue)) {
+  .event { border-color: color-mix(in srgb, var(--tone) 30%, transparent); }
+  .slot { border-top-color: color-mix(in srgb, var(--tone) 22%, transparent); }
+}
+.cal { position: relative; }
+.cal summary { list-style: none; cursor: pointer; }
+.cal summary::-webkit-details-marker { display: none; }
+.cal-menu { display: grid; gap: 2px; margin-top: 10px; padding: 6px; border: 1px solid var(--tone); background: var(--paper); border-radius: 14px; min-width: 210px; }
+.cal-menu a { color: var(--tone); text-decoration: none; padding: 9px 12px; border-radius: 10px; font-size: 17px; font-weight: 600; }
+.cal-menu a:active, .cal-menu a:hover { background: rgba(180,138,58,.14); }
+.sound {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 10;
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--gold);
+  background: var(--paper); color: var(--indigo); display: grid; place-items: center;
+  box-shadow: 0 6px 16px rgba(27,47,110,.18); cursor: pointer; padding: 0;
+}
+.sound svg { width: 20px; height: 20px; }
+.sound:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+</style>
+
+</head>
+<body>
+<div class="overlay" id="overlay">
+  <div class="env" aria-hidden="false">
+    <div class="env-back"></div>
+    <div class="letter"><small>Kochi · January 2027</small><p>John &amp; Divya</p></div>
+    <div class="env-front"></div>
+    <div class="env-flap"></div>
+    <button class="seal" id="seal" type="button" aria-label="Open the invitation">J&amp;D</button>
+  </div>
+  <div class="env-caption">
+    <p class="to">You are warmly invited</p>
+    <p class="hint">Tap the seal to open · sound on</p>
+  </div>
+</div>
+<canvas id="petals" aria-hidden="true"></canvas>
+<audio id="music" src="music.m4a" loop preload="auto"></audio>
+<button class="sound" id="sound" type="button" aria-label="Mute music" hidden>
+  <svg id="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg>
+  <svg id="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" hidden><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/><path d="M3 3l18 18"/></svg>
+</button>
+
+<main class="card" id="card">
+  <header class="hero">
+    <img class="flora" src="art/peony_top.webp" alt="" width="1440" height="576">
+    <div class="hero-body">
+      <p class="eyebrow">With joyful hearts</p>
+      <h1 class="names"><span>John</span><span class="amp">&amp;</span><span>Divya</span></h1>
+      <p class="lede">invite you to celebrate their wedding with them in Kochi</p>
+      <p class="dates-line">1 &amp; 3 January 2027</p>
+    </div>
+  </header>
+
+  <hr class="kasavu">
+
+  <section class="count" aria-live="polite">
+    <p class="eyebrow">Until we say “I do”</p>
+    <div class="ticks" id="ticks">
+      <div class="tick"><b id="cd-d">–</b><span>Days</span></div>
+      <div class="tick"><b id="cd-h">–</b><span>Hours</span></div>
+      <div class="tick"><b id="cd-m">–</b><span>Mins</span></div>
+      <div class="tick"><b id="cd-s">–</b><span>Secs</span></div>
+    </div>
+    <p class="done" id="done" hidden>Just married</p>
+  </section>
+
+  <hr class="kasavu">
+
+  <section class="weekend">
+    <h2>The celebrations</h2>
+    <ol class="days">
+      <li class="day fri"><a href="#madhuram"><span class="dot">1</span><small>Friday</small><em>Madhuram Veppu &amp; Sangeet</em></a></li>
+      <li class="day sat" aria-hidden="true"><span class="dot"></span><small>Sat 2</small></li>
+      <li class="day sun"><a href="#wedding"><span class="dot">3</span><small>Sunday</small><em>Wedding &amp; Reception</em></a></li>
+    </ol>
+  </section>
+
+  <div class="events">
+    <article class="event green" id="madhuram">
+      <img class="corner l" src="art/palm_tl.webp" alt="" width="480" height="544">
+      <img class="corner r" src="art/palm_tl.webp" alt="" width="480" height="544">
+      <div class="inner">
+        <img class="tree" src="art/palm_tree.webp" alt="" width="292" height="332">
+        <p class="eyebrow">Friday · 1 January 2027</p>
+        <h3>Madhuram Veppu <i>&amp;</i> Sangeet</h3>
+        <p class="note">An evening of sweets, songs and dancing</p>
+        <div class="slot">
+          <span class="time">5 pm onwards</span>
+          <span class="where">Observatory by Chakolas Pavilion<br>Panangad, Kochi</span>
+        </div>
+        <div class="actions">
+          <a class="btn solid" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Observatory+by+Chakolas+Pavilion+Panangad+Kochi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Directions</a>
+          <details class="cal">
+            <summary class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Add to calendar</summary>
+            <div class="cal-menu">
+              <a href="madhuram-veppu.ics">iPhone / Apple Calendar</a>
+              <a target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Madhuram+Veppu+%26+Sangeet+%C2%B7+John+%26+Divya&amp;dates=20270101T113000Z/20270101T163000Z&amp;location=Observatory+by+Chakolas+Pavilion,+Panangad,+Kochi&amp;details=Madhuram+Veppu+%26+Sangeet+celebration+of+John+%26+Divya.+5+pm+onwards.">Google Calendar</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="event" id="wedding">
+      <img class="peony-band top" src="art/peony_top.webp" alt="" width="1440" height="576">
+      <div class="inner">
+        <p class="eyebrow">Sunday · 3 January 2027</p>
+        <h3>Holy Matrimony</h3>
+        <div class="slot">
+          <span class="time">11 am</span>
+          <span class="what">Wedding</span>
+          <span class="where">Little Flower Syro-Malabar Church<br>Thrikkakara, Kochi</span>
+          <a class="link-quiet dir" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Little+Flower+Syro-Malabar+Church+Thrikkakara+Kochi">Directions to the church</a>
+        </div>
+        <div class="slot">
+          <span class="time">1 pm</span>
+          <span class="what">Reception</span>
+          <span class="where">Chittilapally Square<br>Thrikkakara, Kochi</span>
+          <a class="link-quiet dir" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Chittilapally+Square+Thrikkakara+Kochi">Directions to the reception</a>
+        </div>
+        <div class="actions">
+          <details class="cal">
+            <summary class="btn solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Add to calendar</summary>
+            <div class="cal-menu">
+              <a href="wedding.ics">iPhone / Apple Calendar</a>
+              <a target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Wedding+of+John+%26+Divya&amp;dates=20270103T053000Z/20270103T103000Z&amp;location=Little+Flower+Syro-Malabar+Church,+Thrikkakara,+Kochi&amp;details=Wedding+at+11+am,+Little+Flower+Syro-Malabar+Church,+Thrikkakara.+Followed+by+the+reception+at+1+pm,+Chittilapally+Square,+Thrikkakara,+Kochi.">Google Calendar</a>
+            </div>
+          </details>
+        </div>
+      </div>
+      <img class="peony-band bottom" src="art/peony_bottom.webp" alt="" width="1440" height="268">
+    </article>
+  </div>
+
+  <hr class="kasavu">
+
+  <footer class="closing">
+    <p class="with">Your presence and blessings would mean the world to us.</p>
+    <p class="sig">John &amp; Divya</p>
+    <p class="place">Kochi · Kerala</p>
+    <button class="replay" id="replay" type="button">Open the envelope again</button>
+    <img class="flora" src="art/peony_bottom.webp" alt="" width="1440" height="268">
+  </footer>
+</main>
+
+<script>
+(function () {
+  var overlay = document.getElementById('overlay');
+  var seal = document.getElementById('seal');
+  var body = document.body;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  body.classList.add('locked');
+
+  function openEnvelope() {
+    if (overlay.classList.contains('open')) return;
+    overlay.classList.add('open');
+    setTimeout(function () {
+      body.classList.remove('locked');
+      document.getElementById('card').classList.add('anim');
+      window.scrollTo(0, 0);
+    }, reduce ? 0 : 1500);
+    if (!reduce) setTimeout(petals, 650);
+    startMusic();
+  }
+  var music = document.getElementById('music'), soundBtn = document.getElementById('sound');
+  function setIcon(on) {
+    document.getElementById('ic-on').hidden = !on; document.getElementById('ic-off').hidden = on;
+    soundBtn.setAttribute('aria-label', on ? 'Mute music' : 'Play music');
+  }
+  function startMusic() {
+    music.volume = 0.7;
+    var p = music.play();
+    soundBtn.hidden = false;
+    if (p && p.then) p.then(function () { setIcon(true); }, function () { setIcon(false); });
+    else setIcon(true);
+  }
+  soundBtn.addEventListener('click', function () {
+    if (music.paused) { music.play(); setIcon(true); } else { music.pause(); setIcon(false); }
+  });
+  seal.addEventListener('click', openEnvelope);
+  overlay.addEventListener('click', function (e) { if (e.target !== seal) openEnvelope(); });
+
+  document.getElementById('replay').addEventListener('click', function () {
+    var card = document.getElementById('card');
+    card.classList.remove('anim');
+    overlay.classList.remove('open');
+    body.classList.add('locked');
+    window.scrollTo(0, 0);
+    seal.focus({ preventScroll: true });
+  });
+
+  /* Countdown to Sun 3 Jan 2027, 11:00 IST */
+  var target = Date.parse('2027-01-03T11:00:00+05:30');
+  var els = ['d', 'h', 'm', 's'].map(function (k) { return document.getElementById('cd-' + k); });
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function tick() {
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      document.getElementById('ticks').hidden = true;
+      document.getElementById('done').hidden = false;
+      return;
+    }
+    var s = Math.floor(ms / 1000);
+    var d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600); s -= h * 3600;
+    var m = Math.floor(s / 60); s -= m * 60;
+    els[0].textContent = d; els[1].textContent = pad(h); els[2].textContent = pad(m); els[3].textContent = pad(s);
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+
+  /* Petal shower in the three inks */
+  function petals() {
+    var c = document.getElementById('petals');
+    var ctx = c.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+    var colors = ['#24429A', '#2E6E60', '#B48A3A', '#DCC48A', '#24429A'];
+    var ps = [];
+    for (var i = 0; i < 90; i++) {
+      ps.push({
+        x: Math.random() * W, y: -Math.random() * H * .6 - 20,
+        r: (5 + Math.random() * 7) * dpr, vy: (1.4 + Math.random() * 2.2) * dpr,
+        sway: Math.random() * 6.28, sw: .02 + Math.random() * .03,
+        rot: Math.random() * 6.28, vr: (Math.random() - .5) * .08,
+        col: colors[i % colors.length]
+      });
+    }
+    var start = performance.now();
+    (function frame(now) {
+      var t = now - start;
+      ctx.clearRect(0, 0, W, H);
+      var alive = false;
+      ps.forEach(function (p) {
+        p.y += p.vy; p.sway += p.sw; p.rot += p.vr;
+        var x = p.x + Math.sin(p.sway) * 18 * dpr;
+        if (p.y < H + 30) alive = true;
+        ctx.save(); ctx.translate(x, p.y); ctx.rotate(p.rot);
+        ctx.globalAlpha = t > 3800 ? Math.max(0, 1 - (t - 3800) / 900) * .85 : .85;
+        ctx.fillStyle = p.col;
+        ctx.beginPath(); ctx.ellipse(0, 0, p.r, p.r * .55, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      });
+      if (alive && t < 4700) requestAnimationFrame(frame); else ctx.clearRect(0, 0, W, H);
+    })(start);
+  }
+})();
+</script>
+
+</body>
+</html>
