@@ -357,7 +357,7 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
   <section class="family" aria-label="Invitation">
     <p class="verse">“So they are no longer two, but one. Therefore what God has joined together, let man not separate.”<cite class="label">Matthew 19:6</cite></p>
     <svg class="orn" viewBox="0 0 64 12" aria-hidden="true"><path d="M0 6h24M40 6h24" stroke="currentColor" stroke-width="1"/><path d="M32 1l5 5-5 5-5-5z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-    <p class="lead">With overflowing hearts and gratitude to the Almighty</p>
+    <p class="lead">With joyful hearts and gratitude to the Almighty</p>
     <p class="parents">Tessa Alapatt Thomas<br>&amp; Thomas John</p>
     <p class="home">Madathil House, Vaikom</p>
     <p class="lead">warmly welcome your presence and blessings, as their son</p>
@@ -431,8 +431,8 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
 
   <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
     <div class="rsvp-head">
-      <h2 id="rsvp-title">Will you join us?</h2>
-      <p>Your presence would mean the world to us. Kindly let us know if you can make it.</p>
+      <h2 id="rsvp-title">Please join us</h2>
+      <p>Your presence and blessings would mean the world to John and Divya</p>
     </div>
 
     <form class="form" id="rsvp-form" novalidate>
@@ -448,7 +448,7 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
         <legend>Will you attend?</legend>
         <div class="choice">
           <label><input type="radio" name="attending" id="rsvp-yes" value="Yes, joyfully attending" checked><span>Yes, joyfully attending</span></label>
-          <label><input type="radio" name="attending" id="rsvp-no" value="Regretfully decline"><span>Regretfully decline</span></label>
+          <label><input type="radio" name="attending" id="rsvp-no" value="Unable to attend (sending love)"><span>Sending love from afar</span></label>
         </div>
       </fieldset>
       
@@ -473,7 +473,6 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
   </section>
 
   <footer class="closing">
-    <p class="with">Your presence and blessings would mean the world to us.</p>
     <p class="sig">John &amp; Divya</p>
     <button class="ghost" id="replay" type="button">Open the envelope again</button>
     <img class="band" src="/art/peony_bottom.webp" alt="" width="1440" height="268">
@@ -600,12 +599,12 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
     var yes = $('rsvp-yes').checked;
     var chips = visibleChips();
     var picked = chips.filter(function (i) { return i.checked; }).map(function (i) { return i.value; });
-    if (yes && chips.length > 1 && !picked.length) { err.textContent = 'Please tick at least one celebration, or choose “Regretfully decline”.'; err.hidden = false; return; }
+    if (yes && chips.length > 1 && !picked.length) { err.textContent = 'Please tick at least one celebration, or choose “Sending love from afar”.'; err.hidden = false; return; }
     if (yes && chips.length <= 1) picked = chips.length ? [chips[0].value] : ['Wedding & Reception (3 Jan)'];
     err.hidden = true;
     var data = {
       name: name, phone: $('rsvp-phone').value.trim(),
-      attending: yes ? 'Yes, joyfully attending' : 'Regretfully decline',
+      attending: yes ? 'Yes, joyfully attending' : 'Unable to attend (sending love)',
       events: yes ? picked.join(', ') : '', guests: yes ? guests : 0,
       invite: INVITE
     };
