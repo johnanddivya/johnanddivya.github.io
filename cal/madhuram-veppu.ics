@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//John and Divya//Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:madhuram-2027@johnanddivya.github.io
+DTSTAMP:20261007T000000Z
+DTSTART:20270101T113000Z
+DTEND:20270101T163000Z
+SUMMARY:Madhuram Veppu & Sangeet · John & Divya
+LOCATION:Observatory by Chakolas Pavilion\, Panangad\, Kochi
+DESCRIPTION:Madhuram Veppu & Sangeet of John & Divya\, 5 pm onwards. Dress code: Kerala traditional.
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
