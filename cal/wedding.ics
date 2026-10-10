@@ -10,7 +10,7 @@ DTSTART:20270103T053000Z
 DTEND:20270103T103000Z
 SUMMARY:Wedding of John & Divya
 LOCATION:Little Flower Syro-Malabar Church\, Thrikkakara\, Kochi
-DESCRIPTION:Wedding at 11 am\, Little Flower Syro-Malabar Church\, Thrikkakara. Reception from 12:30 pm\, Grand Square Convention Centre\, Seaport-Airport Road\, opp. Bharat Mata College\, Thrikkakara\, Kakkanad\, Kochi 682021.
+DESCRIPTION:Wedding at 11 am\, Little Flower Syro-Malabar Church\, Thrikkakara. Reception from 12:30 pm\, Chittilappilly Grand Square\, Seaport-Airport Road\, opp. Bharat Mata College\, Thrikkakara\, Kakkanad\, Kochi 682021.
 BEGIN:VALARM
 TRIGGER:-P1D
 ACTION:DISPLAY
