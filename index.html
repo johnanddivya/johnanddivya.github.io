@@ -431,49 +431,6 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
     
   </div>
 
-  <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
-    <div class="rsvp-head">
-      <h2 id="rsvp-title">Please join us</h2>
-      <p>Your presence and blessings would mean the world to John and Divya</p>
-    </div>
-
-    <form class="form" id="rsvp-form" novalidate>
-      <div class="field">
-        <label for="rsvp-name">Your full name</label>
-        <input class="input" id="rsvp-name" name="name" type="text" autocomplete="name" placeholder="e.g. Maria Joseph" required>
-      </div>
-      <div class="field">
-        <label for="rsvp-phone">Phone / WhatsApp <span class="opt">(optional)</span></label>
-        <input class="input" id="rsvp-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91">
-      </div>
-      <fieldset class="field">
-        <legend>Will you attend?</legend>
-        <div class="choice">
-          <label><input type="radio" name="attending" id="rsvp-yes" value="Yes, joyfully attending" checked><span>Yes, joyfully attending</span></label>
-          <label><input type="radio" name="attending" id="rsvp-no" value="Unable to attend (sending love)"><span>Sending love from afar</span></label>
-        </div>
-      </fieldset>
-      
-      <div class="field" id="f-guests">
-        <label id="guests-label">Additional guests <span class="opt">(family / plus ones)</span></label>
-        <div class="stepper" role="group" aria-labelledby="guests-label">
-          <button type="button" id="g-minus" aria-label="One fewer guest">−</button>
-          <output id="g-count" aria-live="polite">0</output>
-          <button type="button" id="g-plus" aria-label="One more guest">+</button>
-        </div>
-      </div>
-      <p class="err" id="rsvp-err" hidden></p>
-      <button class="submit" type="submit" id="rsvp-send">Confirm RSVP →</button>
-    </form>
-
-    <div class="thanks" id="rsvp-thanks" hidden>
-      <p class="big" id="thx-title">Thank you</p>
-      <p id="thx-body">We have received your RSVP.</p>
-      <p class="small" id="thx-note" hidden></p>
-      <button class="ghost" type="button" id="rsvp-edit">Change my response</button>
-    </div>
-  </section>
-
   <footer class="closing">
     <p class="sig">John &amp; Divya</p>
     <button class="ghost" id="replay" type="button">Open the envelope again</button>
@@ -545,88 +502,13 @@ textarea.input { min-height: 92px; resize: vertical; line-height: 1.45; }
   }
   tick();
 
-  /* ---- RSVP ---- */
-  var form = $('rsvp-form'), guests = 0, MAXG = 15;
-  function renderGuests() { $('g-count').textContent = guests; $('g-minus').disabled = guests <= 0; $('g-plus').disabled = guests >= MAXG; }
-  $('g-minus').addEventListener('click', function () { if (guests > 0) { guests--; renderGuests(); } });
-  $('g-plus').addEventListener('click', function () { if (guests < MAXG) { guests++; renderGuests(); } });
-  renderGuests();
-
-  function visibleChips() {
-    return Array.prototype.filter.call(form.querySelectorAll('input[name="events"]'), function (i) { return !i.closest('[hidden]'); });
-  }
-  function syncAttending() {
-    var yes = $('rsvp-yes').checked;
-    var ev = $('f-events');
-    if (ev) ev.style.display = (yes && visibleChips().length > 1) ? '' : 'none';
-    $('f-guests').style.display = yes ? '' : 'none';
-  }
+  /* ---- Timeline spacing ---- */
   function syncTimeline() {
     var ol = document.querySelector('.days');
     if (ol) ol.style.setProperty('--n', ol.querySelectorAll('li:not([hidden])').length);
   }
-  window.__syncRsvp = function () { syncAttending(); syncTimeline(); };
+  window.__syncRsvp = syncTimeline;
   syncTimeline();
-  form.addEventListener('change', syncAttending);
-  syncAttending();
-
-  var KEY = 'jd-rsvp-' + INVITE;
-  function showThanks(data, preview) {
-    var first = (data.name || '').trim().split(/\s+/)[0] || '';
-    var yes = data.attending.indexOf('Yes') === 0;
-    $('thx-title').textContent = yes ? 'See you there' + (first ? ', ' + first : '') + '!' : 'Thank you' + (first ? ', ' + first : '');
-    $('thx-body').textContent = yes
-      ? 'Your RSVP is in' + (data.events ? ' for ' + data.events.replace(/ \(.*?\)/g, '').replace(/, ([^,]*)$/, ' and $1') : '') + (data.guests > 0 ? ', with ' + data.guests + ' more guest' + (data.guests > 1 ? 's' : '') : '') + '.'
-      : 'We will miss you, and we are grateful for your blessings.';
-    $('thx-note').hidden = !preview;
-    $('thx-note').textContent = preview ? 'Preview only: this response was not saved. On the live invite, RSVPs go straight to your Google Sheet.' : '';
-    form.hidden = true; $('rsvp-thanks').hidden = false;
-  }
-  $('rsvp-edit').addEventListener('click', function () { $('rsvp-thanks').hidden = true; form.hidden = false; $('rsvp-name').focus(); });
-
-  try {
-    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (saved && saved.name) {
-      $('rsvp-name').value = saved.name; $('rsvp-phone').value = saved.phone || '';
-      guests = saved.guests || 0; renderGuests();
-      showThanks(saved, false);
-    }
-  } catch (e) {}
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var err = $('rsvp-err');
-    var name = $('rsvp-name').value.trim();
-    if (!name) { err.textContent = 'Please enter your name so we know who is coming.'; err.hidden = false; $('rsvp-name').focus(); return; }
-    var yes = $('rsvp-yes').checked;
-    var chips = visibleChips();
-    var picked = chips.filter(function (i) { return i.checked; }).map(function (i) { return i.value; });
-    if (yes && chips.length > 1 && !picked.length) { err.textContent = 'Please tick at least one celebration, or choose “Sending love from afar”.'; err.hidden = false; return; }
-    if (yes && chips.length <= 1) picked = chips.length ? [chips[0].value] : ['Wedding & Reception (3 Jan)'];
-    err.hidden = true;
-    var data = {
-      name: name, phone: $('rsvp-phone').value.trim(),
-      attending: yes ? 'Yes, joyfully attending' : 'Unable to attend (sending love)',
-      events: yes ? picked.join(', ') : '', guests: yes ? guests : 0,
-      invite: INVITE
-    };
-    var done = function (preview) {
-      try { if (!preview) localStorage.setItem(KEY, JSON.stringify(data)); } catch (x) {}
-      $('rsvp-send').disabled = false; $('rsvp-send').textContent = 'Confirm RSVP →';
-      showThanks(data, preview);
-      $('rsvp').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    };
-    if (!/^https:\/\/docs\.google\.com\/forms\//.test(RSVP.action)) { done(true); return; }
-    var p = new URLSearchParams();
-    Object.keys(RSVP.fields).forEach(function (k) { if (RSVP.fields[k]) p.append(RSVP.fields[k], data[k] === undefined ? '' : String(data[k])); });
-    $('rsvp-send').disabled = true; $('rsvp-send').textContent = 'Sending…';
-    fetch(RSVP.action, { method: 'POST', mode: 'no-cors', body: p })
-      .then(function () { done(false); })
-      .catch(function () {
-        $('rsvp-send').disabled = false; $('rsvp-send').textContent = 'Confirm RSVP →';
-        err.textContent = 'That did not go through. Please check your internet connection and tap Confirm again.'; err.hidden = false;
-      });
-  });
 
   /* ---- Petal shower ---- */
   function petals() {
